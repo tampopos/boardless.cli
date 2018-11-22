@@ -1,0 +1,9 @@
+version: '2'
+services:
+  boardless-postgres:
+    build: ./postgres
+    image: tmpps/boardless-postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ~/boardless/postgresql/data/:/var/lib/postgresql/data:Z
