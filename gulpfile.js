@@ -1,14 +1,5 @@
 const gulp = require('gulp');
-const {
-  clean,
-  restore,
-  build,
-  test,
-  pack,
-  publish,
-  run
-} = require('gulp-dotnet-cli');
-const runSequence = require('run-sequence');
+const { clean, restore, build, test, publish } = require('gulp-dotnet-cli');
 const path = require('path');
 const zip = require('gulp-zip');
 const spawn = require('child_process').spawn;

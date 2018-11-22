@@ -1,13 +1,11 @@
 # tmpps.boardless
 
-tmpps.boardless の API サーバー
+tmpps.boardless の CLI
 
 ## Required
 
 - .Net core 2.1
 - node.js
-- AWS SQS  
-  アプリケーション設定に認証情報を追加する
 
 #### Options
 
@@ -38,14 +36,6 @@ tmpps.boardless の API サーバー
 ##### Docker 上の postgresql にログインする
 
 `docker exec -ti database_boardless-postgres_1 psql -U postgres`
-
-#### WebApi を実行
-
-`npm run web`
-
-#### Messaging Subscriber を実行
-
-`npm run subscriber`
 
 #### Debug
 

@@ -18,7 +18,7 @@
   "csharpfixformat.style.braces.onSameLine": false,
   "csharpfixformat.style.spaces.beforeParenthesis": false,
   "csharpfixformat.style.spaces.beforeIndexerBracket": false,
-  "editor.tabCompletion": true,
+  "editor.tabCompletion": "on",
   "prettier.semi": true,
   "prettier.tabWidth": 2,
   "prettier.singleQuote": true,
