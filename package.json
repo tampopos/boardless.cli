@@ -1,5 +1,5 @@
 {
-  "name": "tmpps.boardless.api",
+  "name": "tmpps.boardless.cli",
   "version": "1.0.0",
   "description": "",
   "repository": {
@@ -14,7 +14,7 @@
     "run-sequence": "^2.2.1"
   },
   "scripts": {
-    "start": "gulp start",
+    "start": "gulp run",
     "install": "gulp restore",
     "restore": "gulp restore",
     "build": "gulp build",

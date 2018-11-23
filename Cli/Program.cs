@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Tmpps.Boardless.Cli.Configuration;
+using Cli.Configuration;
 
-namespace Tmpps.Boardless.Cli
+namespace Cli
 {
     class Program
     {

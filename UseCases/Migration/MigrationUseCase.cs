@@ -7,7 +7,7 @@ using Tmpps.Infrastructure.Common.DependencyInjection.Interfaces;
 using Tmpps.Infrastructure.Common.Foundation.Exceptions;
 using Tmpps.Infrastructure.Common.IO.Interfaces;
 
-namespace Tmpps.Boardless.UseCases.Migration
+namespace UseCases.Migration
 {
     internal class MigrationUseCase : IMigrationUseCase
     {

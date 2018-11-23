@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
-using Tmpps.Boardless.UseCases.Migration;
+using UseCases.Migration;
 
-namespace Tmpps.Boardless.Cli.Configuration
+namespace Cli.Configuration
 {
     public class CliApplication
     {
@@ -28,8 +28,8 @@ namespace Tmpps.Boardless.Cli.Configuration
 
         public int Execute(string[] args)
         {
-            this.application.Name = nameof(Boardless);
-            this.application.Description = "CliSampleプロジェクト";
+            this.application.Name = "Boardless";
+            this.application.Description = "BoardlessCli";
             this.application.HelpOption("-h|--help");
 
             this.application.Command("migration", command =>

@@ -1,7 +1,7 @@
-using Tmpps.Boardless.UseCases.Migration;
+using UseCases.Migration;
 using Tmpps.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 
-namespace Tmpps.Boardless.UseCases
+namespace UseCases
 {
     public class UseCasesDIModule : IDIModule
     {

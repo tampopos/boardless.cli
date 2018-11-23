@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Tmpps.Boardless.UseCases;
+using UseCases;
 using Tmpps.Infrastructure.Autofac;
 using Tmpps.Infrastructure.Autofac.Configuration;
 using Tmpps.Infrastructure.Common.Claims.Interfaces;
@@ -15,7 +15,7 @@ using Tmpps.Infrastructure.Common.Messaging.Interfaces;
 using Tmpps.Infrastructure.JsonWebToken;
 using Tmpps.Infrastructure.Npgsql.Entity.Migration;
 
-namespace Tmpps.Boardless.Cli.Configuration
+namespace Cli.Configuration
 {
     public class CliDIModule : IDIModule
     {

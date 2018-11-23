@@ -4,7 +4,7 @@ const path = require('path');
 const zip = require('gulp-zip');
 const spawn = require('child_process').spawn;
 
-const cliName = 'Tmpps.Boardless.Cli';
+const cliName = 'Cli';
 const cli = '**/' + cliName + '.csproj';
 const appEntries = [cli];
 const testEntries = [];
@@ -41,7 +41,7 @@ gulp.task('zip', cb => {
     .pipe(zip('application.zip'))
     .pipe(gulp.dest(dist));
 });
-gulp.task('start', () => {
+gulp.task('run', () => {
   const cli = spawn('dotnet run', {
     cwd: cliName,
     shell: true

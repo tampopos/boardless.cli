@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Tmpps.Boardless.UseCases.Migration
+namespace UseCases.Migration
 {
     public interface IMigrationUseCase
     {

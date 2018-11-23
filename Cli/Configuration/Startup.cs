@@ -8,7 +8,7 @@ using Tmpps.Infrastructure.Autofac.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Tmpps.Boardless.Cli.Configuration
+namespace Cli.Configuration
 {
     public class Startup
     {

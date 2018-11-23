@@ -11,7 +11,7 @@
         <ProjectReference Include="..\Tmpps.Infrastructure.Autofac\Tmpps.Infrastructure.Autofac.csproj" />
         <ProjectReference Include="..\Tmpps.Infrastructure.JsonWebToken\Tmpps.Infrastructure.JsonWebToken.csproj" />
         <ProjectReference Include="..\Tmpps.Infrastructure.Npgsql.Entity\Tmpps.Infrastructure.Npgsql.Entity.csproj"/>
-        <ProjectReference Include="..\Tmpps.Boardless.UseCases\Tmpps.Boardless.UseCases.csproj"/>
+        <ProjectReference Include="..\UseCases\UseCases.csproj"/>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />

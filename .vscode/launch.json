@@ -6,9 +6,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Tmpps.Boardless.Cli/bin/Debug/netcoreapp2.1/Tmpps.Boardless.Cli.dll",
+      "program": "${workspaceFolder}/Cli/bin/Debug/netcoreapp2.1/Cli.dll",
       "args": ["migration"],
-      "cwd": "${workspaceFolder}/Tmpps.Boardless.Cli",
+      "cwd": "${workspaceFolder}/Cli",
       "stopAtEntry": false,
       "console": "internalConsole"
     }
