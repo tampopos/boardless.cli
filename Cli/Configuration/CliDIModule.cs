@@ -1,19 +1,18 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using UseCases;
 using Tmpps.Infrastructure.Autofac;
 using Tmpps.Infrastructure.Autofac.Configuration;
-using Tmpps.Infrastructure.Common.Claims.Interfaces;
-using Tmpps.Infrastructure.Common.Data.Configuration.Interfaces;
-using Tmpps.Infrastructure.Common.Data.Migration.Interfaces;
 using Tmpps.Infrastructure.Common.DependencyInjection.Builder;
 using Tmpps.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 using Tmpps.Infrastructure.Common.Foundation;
 using Tmpps.Infrastructure.Common.Foundation.Interfaces;
-using Tmpps.Infrastructure.Common.Messaging.Interfaces;
+using Tmpps.Infrastructure.Data.Configuration.Interfaces;
+using Tmpps.Infrastructure.Data.Migration.Interfaces;
 using Tmpps.Infrastructure.JsonWebToken;
+using Tmpps.Infrastructure.JsonWebToken.Interfaces;
 using Tmpps.Infrastructure.Npgsql.Entity.Migration;
+using UseCases;
 
 namespace Cli.Configuration
 {

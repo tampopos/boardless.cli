@@ -8,9 +8,6 @@
         <UserSecretsId>boardless-cli-secret</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Tmpps.Infrastructure.Autofac\Tmpps.Infrastructure.Autofac.csproj" />
-        <ProjectReference Include="..\Tmpps.Infrastructure.JsonWebToken\Tmpps.Infrastructure.JsonWebToken.csproj" />
-        <ProjectReference Include="..\Tmpps.Infrastructure.Npgsql.Entity\Tmpps.Infrastructure.Npgsql.Entity.csproj"/>
         <ProjectReference Include="..\UseCases\UseCases.csproj"/>
     </ItemGroup>
     <ItemGroup>
@@ -22,6 +19,8 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
+        <PackageReference Include="Tmpps.Infrastructure.Autofac" Version="1.0.0" />
+        <PackageReference Include="Tmpps.Infrastructure.JsonWebToken" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="appsettings.json">

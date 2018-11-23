@@ -2,10 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Tmpps.Infrastructure.Common.Data.Migration.Interfaces;
 using Tmpps.Infrastructure.Common.DependencyInjection.Interfaces;
 using Tmpps.Infrastructure.Common.Foundation.Exceptions;
 using Tmpps.Infrastructure.Common.IO.Interfaces;
+using Tmpps.Infrastructure.Data.Migration.Interfaces;
 
 namespace UseCases.Migration
 {
@@ -34,7 +34,7 @@ namespace UseCases.Migration
             {
                 throw new BizLogicException($"ファイル名に重複があります。{Environment.NewLine}{string.Join(Environment.NewLine, duplicate)}");
             }
-            using (var scope = this.scopeProvider.BeginLifetimeScope())
+            using(var scope = this.scopeProvider.BeginLifetimeScope())
             {
                 var migrationHelper = scope.Resolve<IMigrationHelper>();
                 await migrationHelper.InitializeDatabaseAsync();
@@ -42,7 +42,7 @@ namespace UseCases.Migration
             }
             foreach (var file in files.Select(x => new { Id = x.Key, Path = x.First() }))
             {
-                using (var scope = this.scopeProvider.BeginLifetimeScope())
+                using(var scope = this.scopeProvider.BeginLifetimeScope())
                 {
                     await scope.Resolve<IMigrationHelper>().MigrationAsync(file.Id, file.Path);
                 }

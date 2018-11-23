@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
-using Tmpps.Infrastructure.Common.Claims.Interfaces;
-using Tmpps.Infrastructure.Common.Data.Configuration.Interfaces;
-using Tmpps.Infrastructure.Common.Data.Migration.Interfaces;
+using Tmpps.Infrastructure.Data.Configuration.Interfaces;
+using Tmpps.Infrastructure.Data.Migration.Interfaces;
+using Tmpps.Infrastructure.JsonWebToken.Interfaces;
 
 namespace Cli.Configuration
 {

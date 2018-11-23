@@ -4,6 +4,6 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Tmpps.Infrastructure.Common\Tmpps.Infrastructure.Common.csproj" />
+        <PackageReference Include="Tmpps.Infrastructure.Npgsql.Entity" Version="1.1.1" />
     </ItemGroup>
 </Project>
