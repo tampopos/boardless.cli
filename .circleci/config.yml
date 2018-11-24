@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node
+      - image: wakuwaku3/node-dotnet
     steps:
       - checkout
       - run:
