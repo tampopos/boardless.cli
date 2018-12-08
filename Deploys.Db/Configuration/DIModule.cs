@@ -1,23 +1,11 @@
-using System;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Npgsql;
 using Tmpps.Infrastructure.Autofac;
 using Tmpps.Infrastructure.Autofac.Configuration;
-using Tmpps.Infrastructure.Common.DependencyInjection.Builder;
 using Tmpps.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
-using Tmpps.Infrastructure.Common.DependencyInjection.Interfaces;
 using Tmpps.Infrastructure.Common.Foundation;
-using Tmpps.Infrastructure.Common.Foundation.Exceptions;
 using Tmpps.Infrastructure.Common.Foundation.Interfaces;
-using Tmpps.Infrastructure.Common.IO.Interfaces;
-using Tmpps.Infrastructure.Common.ValueObjects;
-using Tmpps.Infrastructure.Data.Configuration.Interfaces;
 using Tmpps.Infrastructure.Data.Migration.Interfaces;
 using Tmpps.Infrastructure.Npgsql.Entity.Migration;
 
