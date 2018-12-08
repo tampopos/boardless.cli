@@ -1,48 +1,53 @@
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
-using UseCases.Migration;
+using Tmpps.Infrastructure.Common.IO.Interfaces;
+using Tmpps.Infrastructure.Data.Migration.Interfaces;
 
-namespace Cli.Configuration
+namespace Deploys.Db.Configuration
 {
-    public class CliApplication
+    public class Application
     {
         private CancellationTokenSource cancellationTokenSource;
         private CommandLineApplication application;
         private ILogger logger;
-        private IMigrationUseCase migrationService;
+        private IMigrationConfig config;
+        private IPathResolver pathResolver;
+        private IMigrationUseCase migrationUseCase;
 
-        public CliApplication(
+        public Application(
             CommandLineApplication application,
             CancellationTokenSource cancellationTokenSource,
             ILogger logger,
-            IMigrationUseCase migrationService)
+            IMigrationConfig config,
+            IPathResolver pathResolver,
+            IMigrationUseCase migrationUseCase)
         {
             this.application = application;
             this.cancellationTokenSource = cancellationTokenSource;
             this.logger = logger;
-            this.migrationService = migrationService;
+            this.config = config;
+            this.pathResolver = pathResolver;
+            this.migrationUseCase = migrationUseCase;
         }
 
         public int Execute(string[] args)
         {
-            this.application.Name = "Boardless";
-            this.application.Description = "BoardlessCli";
+            this.application.Name = "Boardless.Deploys.Db";
+            this.application.Description = "Boardless Db の展開アプリ";
             this.application.HelpOption("-h|--help");
-
-            this.application.Command("migration", command =>
+            this.application.OnExecute(async() =>
             {
-                command.Description = "database migration を行います。";
-                command.HelpOption("-h|--help");
-
-                command.OnExecute(async() =>
+                return await this.ExecuteOnErrorHandleAsync("migration", async() =>
                 {
-                    return await this.ExecuteOnErrorHandleAsync("migration", async() =>
-                    {
-                        return await this.migrationService.ExecuteAsync();
-                    });
+                    var dir = this.pathResolver.ResolveDirectoryPath(this.config.Path);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), this.config.Path);
+                    var fullpath = Path.GetFullPath(path);
+
+                    return await this.migrationUseCase.ExecuteAsync();
                 });
             });
 

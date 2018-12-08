@@ -1,5 +1,5 @@
 {
-  "name": "tmpps.boardless.cli",
+  "name": "boardless.deploys.db",
   "version": "1.0.0",
   "description": "",
   "repository": {
@@ -20,8 +20,7 @@
     "build": "gulp build",
     "publish": "gulp publish",
     "test": "gulp test",
-    "db": "gulp db",
-    "migration": "gulp migration"
+    "db": "gulp db"
   },
   "author": "",
   "license": "ISC"

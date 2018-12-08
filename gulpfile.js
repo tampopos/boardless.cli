@@ -4,9 +4,9 @@ const path = require('path');
 const zip = require('gulp-zip');
 const spawn = require('child_process').spawn;
 
-const cliName = 'Cli';
-const cli = '**/' + cliName + '.csproj';
-const appEntries = [cli];
+const appName = 'Deploys.Db';
+const prj = '**/' + appName + '.csproj';
+const appEntries = [prj];
 const testEntries = [];
 const entries = appEntries.concat(testEntries);
 const dist = 'dist';
@@ -31,7 +31,7 @@ gulp.task('test', () => {
 gulp.task('publish', cb => {
   const output = path.join(process.cwd(), dist, 'raw', 'fdd');
   return gulp
-    .src(cli, { read: false })
+    .src(prj, { read: false })
     .pipe(publish({ configuration: 'Release', output: output }));
 });
 gulp.task('zip', cb => {
@@ -43,7 +43,7 @@ gulp.task('zip', cb => {
 });
 gulp.task('run', () => {
   const cli = spawn('dotnet run', {
-    cwd: cliName,
+    cwd: appName,
     shell: true
   });
   cli.stdout.on('data', data => console.log('stdout: ' + data));
@@ -55,13 +55,4 @@ gulp.task('db', cb => {
   docker.stdout.on('data', data => console.log('stdout: ' + data));
   docker.stderr.on('data', data => console.log('stdout: ' + data));
   return docker;
-});
-gulp.task('migration', () => {
-  const migration = spawn('dotnet run migration', {
-    cwd: cliName,
-    shell: true
-  });
-  migration.stdout.on('data', data => console.log('stdout: ' + data));
-  migration.stderr.on('data', data => console.log('stdout: ' + data));
-  return migration;
 });

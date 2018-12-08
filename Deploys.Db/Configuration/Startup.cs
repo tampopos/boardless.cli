@@ -4,11 +4,11 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
-using Tmpps.Infrastructure.Autofac.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Tmpps.Infrastructure.Autofac.Builder;
 
-namespace Cli.Configuration
+namespace Deploys.Db.Configuration
 {
     public class Startup
     {
@@ -43,7 +43,7 @@ namespace Cli.Configuration
         public int Execute()
         {
             var builder = new AutofacBuilder();
-            builder.RegisterModule(new CliDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
+            builder.RegisterModule(new DIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
             using(var scope = builder.Build())
             {
                 var cts = scope.Resolve<CancellationTokenSource>();
@@ -54,7 +54,7 @@ namespace Cli.Configuration
                 AssemblyLoadContext.Default.Unloading += action;
                 try
                 {
-                    var app = scope.Resolve<CliApplication>();
+                    var app = scope.Resolve<Application>();
                     return app.Execute(args);
                 }
                 finally

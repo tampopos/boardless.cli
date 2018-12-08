@@ -2,13 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Cli",
+      "name": "Deploys.Db",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Cli/bin/Debug/netcoreapp2.1/Cli.dll",
-      "args": ["migration"],
-      "cwd": "${workspaceFolder}/Cli",
+      "program": "${workspaceFolder}/Deploys.Db/bin/Debug/netcoreapp2.2/Deploys.Db.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Deploys.Db",
       "stopAtEntry": false,
       "console": "internalConsole"
     }

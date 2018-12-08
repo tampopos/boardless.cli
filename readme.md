@@ -1,10 +1,10 @@
-# tmpps.boardless
+# boardless.deploys.db
 
-tmpps.boardless の CLI
+db の展開
 
 ## Required
 
-- .Net core 2.1
+- .Net core 2.2
 - node.js
 
 #### Options
@@ -32,6 +32,10 @@ tmpps.boardless の CLI
 #### Database を Docker で起動
 
 `npm run db`
+
+#### 展開
+
+`npm start`
 
 ##### Docker 上の postgresql にログインする
 

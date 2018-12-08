@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Cli.Configuration;
+using Deploys.Db.Configuration;
 
-namespace Cli
+namespace Deploys.Db
 {
     class Program
     {
