@@ -5,7 +5,6 @@
       "name": "Deploys.Db",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
       "program": "${workspaceFolder}/Deploys.Db/bin/Debug/netcoreapp2.2/Deploys.Db.dll",
       "args": [],
       "cwd": "${workspaceFolder}/Deploys.Db",
