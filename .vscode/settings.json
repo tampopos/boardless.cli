@@ -37,6 +37,7 @@
     "Xunit",
     "appsettings",
     "boardless",
+    "circleci",
     "classname",
     "gitignore",
     "hoge",
@@ -47,7 +48,7 @@
     "postgresql",
     "psql",
     "tmpps"
-  ],
+],
   "cSpell.ignoreRegExpList": ["/.*ー/"],
   "cSpell.ignorePaths": [
     "**/package-lock.json",

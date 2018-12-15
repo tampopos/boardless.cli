@@ -17,33 +17,36 @@ db の展開
 
 ## Usage
 
-#### 始めに
+#### restore
 
-`npm install`
+`dotnet restore Deploys.Db/`
 
-#### ビルド
+#### build
 
-`npm run build`
+`dotnet build Deploys.Db/`
 
-#### テスト
+#### run
 
-`npm run test`
+`dotnet run -p Deploys.Db/`
 
-#### Database を Docker で起動
+#### test
 
-`npm run db`
+`sudo docker-compose up`
 
-#### 展開
-
-`npm start`
-
-##### Docker 上の postgresql にログインする
-
-`docker exec -ti database_boardless-postgres_1 psql -U postgres`
-
-#### Debug
+#### debug
 
 vscode でデバッグ実行可能
+
+#### validate ci config
+
+`circleci config validate`
+
+#### release
+
+```bash
+git tag X.Y.Z
+git push origin --tags
+```
 
 ## リンク
 
