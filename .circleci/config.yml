@@ -5,7 +5,6 @@ executors:
       - image: microsoft/dotnet:latest
       - image: postgres:latest
         environment:
-          LANG: ja_JP.UTF-8
           POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --locale=ja_JP.UTF-8'
           POSTGRES_USER: 'postgres'
           POSTGRES_PASSWORD: 'postgres'
