@@ -10,17 +10,14 @@ namespace Deploys.Db.Configuration
     {
         private CommandLineApplication application;
         private ILogger logger;
-        private IMigrationConfig config;
         private IMigrationUseCase migrationUseCase;
 
         public Application(
             CommandLineApplication application,
             ILogger logger,
-            IMigrationConfig config,
             IMigrationUseCase migrationUseCase)
         {
             this.application = application;
-            this.config = config;
             this.logger = logger;
             this.migrationUseCase = migrationUseCase;
         }
@@ -45,7 +42,7 @@ namespace Deploys.Db.Configuration
         {
             try
             {
-                this.logger?.LogInformation($"Start {commandName} {this.config.RootConnectionString}");
+                this.logger?.LogInformation($"Start {commandName}");
                 var res = await func();
                 this.logger?.LogInformation($"End {commandName}");
                 return res;
