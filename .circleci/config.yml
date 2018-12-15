@@ -3,12 +3,12 @@ executors:
   dotnet:
     docker:
       - image: microsoft/dotnet:latest
-  postgres:
-    docker:
       - image: postgres:latest
         environment:
           LANG: ja_JP.UTF-8
           POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --locale=ja_JP.UTF-8'
+          POSTGRES_USER: 'postgres'
+          POSTGRES_PASSWORD: 'postgres'
   dind:
     docker:
       - image: docker:latest
@@ -33,7 +33,7 @@ jobs:
             DOCKERIZE_VERSION: v0.3.0
       - run:
           name: Wait for db
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 5m
       - run:
           name: test
           command: dotnet run -p Deploys.Db
