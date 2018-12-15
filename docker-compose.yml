@@ -20,6 +20,8 @@ services:
       - Directory=./.migration
     networks:
       - my-network
+    depends_on:
+      - postgres
     links:
       - postgres
 networks:
