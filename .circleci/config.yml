@@ -30,6 +30,7 @@ jobs:
       - run:
           name: build
           command: dotnet run -c Release -p Deploys.Db
+          background: true
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
@@ -40,10 +41,10 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
       - run:
           name: Wait for app
-          command: dockerize -wait tcp://127.0.0.1:5000 -timeout 1m
+          command: dockerize -wait tcp://127.0.0.1:80 -timeout 1m
       - run:
           name: migration
-          command: curl -X POST 127.0.0.1:5000/migrations -H "Content-Length:0"
+          command: curl -X POST 127.0.0.1:80/migrations -H "Content-Length:0"
   publish:
     executor: dind
     steps:
