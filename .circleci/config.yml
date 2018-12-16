@@ -33,7 +33,7 @@ jobs:
           command: cd Deploys.Db/out
       - run:
           name: run
-          command: dotnet Deploys.Db
+          command: dotnet Deploys.Db.dll
           background: true
       - run:
           name: Wait for db
