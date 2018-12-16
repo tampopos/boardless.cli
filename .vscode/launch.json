@@ -9,7 +9,13 @@
       "args": [],
       "cwd": "${workspaceFolder}/Deploys.Db",
       "stopAtEntry": false,
-      "console": "internalConsole"
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Api/Views"
+      }
     }
   ]
 }

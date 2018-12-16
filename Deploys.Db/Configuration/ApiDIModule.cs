@@ -11,7 +11,7 @@ using Tmpps.Infrastructure.Npgsql.Entity.Migration;
 
 namespace Deploys.Db.Configuration
 {
-    public class DIModule : IDIModule
+    public class ApiDIModule : IDIModule
     {
         private Assembly executeAssembly;
         private string rootPath;
@@ -19,7 +19,7 @@ namespace Deploys.Db.Configuration
         private ILoggerFactory loggerFactory;
         private CommonDIModule commonAutofacModule;
 
-        public DIModule(Assembly executeAssembly, string rootPath, IConfigurationRoot configurationRoot, ILoggerFactory loggerFactory)
+        public ApiDIModule(Assembly executeAssembly, string rootPath, IConfigurationRoot configurationRoot, ILoggerFactory loggerFactory)
         {
             this.executeAssembly = executeAssembly;
             this.rootPath = rootPath;
@@ -36,7 +36,7 @@ namespace Deploys.Db.Configuration
             builder.RegisterModule(new AutofacDIModule());
             builder.RegisterModule(new MigrationDIModule());
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
-            builder.RegisterType<Config>(x =>
+            builder.RegisterType<ApiConfig>(x =>
                 x.As<IMigrationConfig>()
                 .SingleInstance());
         }

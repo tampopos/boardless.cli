@@ -19,7 +19,7 @@ jobs:
       - checkout
       - run:
           name: build
-          command: dotnet build Deploys.Db
+          command: dotnet build -c Release Deploys.Db
   test:
     executor: dotnet
     environment:
@@ -37,7 +37,14 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 5m
       - run:
           name: test
-          command: dotnet run -p Deploys.Db
+          command: dotnet run -p -c Release Deploys.Db
+          background: true
+      - run:
+          name: Wait for app
+          command: dockerize -wait tcp://127.0.0.1:5000 -timeout 5m
+      - run:
+          name: migration
+          command: curl -X POST 127.0.0.1:5000/migrations -H "Content-Length:0"
   publish:
     executor: dind
     steps:
