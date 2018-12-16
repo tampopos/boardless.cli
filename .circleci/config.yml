@@ -24,7 +24,7 @@ jobs:
     executor: dotnet
     environment:
       - ConnectionStrings__Root: 'Server=127.0.0.1;User ID=postgres;Password=postgres;Port=5432;'
-      - Directory: './.migration'
+      - Directory: '../.migration'
     steps:
       - checkout
       - run:
