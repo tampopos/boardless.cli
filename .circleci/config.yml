@@ -44,14 +44,7 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:80 -timeout 1m
       - run:
           name: migration
-          command: result=curl -X POST 127.0.0.1:80/migrations -H "Content-Length:0"
-      - run:
-          name: echo migration
-          command: echo $result
-      - when:
-          condition: $result -ne 0
-          steps:
-            - run: exit 1
+          command: sh .circleci/migration.sh
   publish:
     executor: dind
     steps:
