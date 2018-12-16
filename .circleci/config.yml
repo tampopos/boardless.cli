@@ -13,6 +13,13 @@ executors:
     docker:
       - image: docker:latest
 jobs:
+  build:
+    executor: dotnet
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: dotnet build -c Release Deploys.Db
   test:
     executor: dotnet
     environment:
@@ -21,32 +28,22 @@ jobs:
     steps:
       - checkout
       - run:
+          name: build
+          command: dotnet run -c Release -p Deploys.Db
+      - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.3.0
       - run:
-          name: build
-          command: dotnet publish Deploys.Db -c Release -o out
-      - run:
-          name: cd
-          command: cd Deploys.Db/out
-      - run:
-          name: ls
-          command: ls
-      - run:
-          name: run
-          command: dotnet "Deploys.Db.dll"
-          background: true
-      - run:
           name: Wait for db
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
       - run:
           name: Wait for app
-          command: dockerize -wait tcp://127.0.0.1:80 -timeout 1m
+          command: dockerize -wait tcp://127.0.0.1:5000 -timeout 1m
       - run:
           name: migration
-          command: curl -X POST 127.0.0.1:80/migrations -H "Content-Length:0"
+          command: curl -X POST 127.0.0.1:5000/migrations -H "Content-Length:0"
   publish:
     executor: dind
     steps:
@@ -62,6 +59,10 @@ workflows:
   version: 2
   build:
     jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
       - test:
           filters:
             tags:
@@ -69,6 +70,7 @@ workflows:
       - publish:
           context: docker-publish
           requires:
+            - build
             - test
           filters:
             branches:
