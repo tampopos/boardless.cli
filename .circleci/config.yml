@@ -13,13 +13,6 @@ executors:
     docker:
       - image: docker:latest
 jobs:
-  build:
-    executor: dotnet
-    steps:
-      - checkout
-      - run:
-          name: build
-          command: dotnet build -c Release Deploys.Db
   test:
     executor: dotnet
     environment:
@@ -33,18 +26,24 @@ jobs:
           environment:
             DOCKERIZE_VERSION: v0.3.0
       - run:
-          name: Wait for db
-          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 5m
+          name: build
+          command: dotnet publish Deploys.Db -c Release -o out
       - run:
-          name: test
-          command: dotnet run -p -c Release Deploys.Db
+          name: cd
+          command: cd Deploys.Db/out
+      - run:
+          name: run
+          command: dotnet Deploys.Db
           background: true
       - run:
+          name: Wait for db
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
+      - run:
           name: Wait for app
-          command: dockerize -wait tcp://127.0.0.1:5000 -timeout 5m
+          command: dockerize -wait tcp://127.0.0.1:80 -timeout 1m
       - run:
           name: migration
-          command: curl -X POST 127.0.0.1:5000/migrations -H "Content-Length:0"
+          command: curl -X POST 127.0.0.1:80/migrations -H "Content-Length:0"
   publish:
     executor: dind
     steps:
@@ -60,10 +59,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /.*/
       - test:
           filters:
             tags:
@@ -71,7 +66,6 @@ workflows:
       - publish:
           context: docker-publish
           requires:
-            - build
             - test
           filters:
             branches:
