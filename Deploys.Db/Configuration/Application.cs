@@ -58,7 +58,7 @@ namespace Deploys.Db.Configuration
 
         private async Task<int> MigrationAsync()
         {
-            var stopwatch = new Stopwatch();
+            var stopwatch = Stopwatch.StartNew();
             return await MigrationAsyncInner() ? 0 : 1;
 
             async Task<bool> MigrationAsyncInner()
