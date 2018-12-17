@@ -10,5 +10,6 @@ COPY .migration .migration/
 
 ENV ConnectionStrings__Root ""
 ENV Directory ./.migration
+ENV Timeout 60
 
 ENTRYPOINT [ "dotnet","Deploys.Db.dll" ]

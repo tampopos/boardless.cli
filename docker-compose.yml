@@ -18,6 +18,7 @@ services:
     environment:
       - ConnectionStrings__Root=Server=postgres;User ID=postgres;Password=postgres;Port=5432;
       - Directory=./.migration
+      - Timeout=60
     networks:
       - my-network
     depends_on:

@@ -4,66 +4,63 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading;
 using Deploys.Db.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Tmpps.Infrastructure.AspNetCore.Extensions;
-using Tmpps.Infrastructure.AspNetCore.Middlewares.Extensions;
 using Tmpps.Infrastructure.Autofac.Builder;
-using Tmpps.Infrastructure.Common.Configuration;
-using Tmpps.Infrastructure.Common.DependencyInjection.Interfaces;
 
-namespace Api.Configuration
+namespace Deploys.Db.Configuration
 {
     public class Startup
     {
-        private IHostingEnvironment hostingEnvironment;
+        private string[] args;
         private ILoggerFactory loggerFactory;
-        private IConfiguration configuration;
         private IConfigurationRoot configurationRoot;
         private Assembly executeAssembly;
         private string rootPath;
-        private ApiConfig config;
 
-        public Startup(IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory, IConfiguration configuration)
+        public Startup(string[] args)
         {
-            this.hostingEnvironment = hostingEnvironment;
-            this.loggerFactory = loggerFactory;
-            this.configuration = configuration;
+            this.args = args;
+            this.loggerFactory = new LoggerFactory();
+            this.loggerFactory.AddConsole();
+            this.loggerFactory.AddDebug();
             this.executeAssembly = Assembly.GetEntryAssembly();
             this.rootPath = Directory.GetCurrentDirectory();
-            this.configurationRoot = this.CreateConfigurationRoot();
-        }
-
-        private IConfigurationRoot CreateConfigurationRoot()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(hostingEnvironment.ContentRootPath)
+            var configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(rootPath)
                 .AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
-                .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional : true)
                 .AddEnvironmentVariables()
+                .AddCommandLine(this.args)
                 .AddJsonFile($"appsettings.user.json", optional : true);
-            return builder.Build();
+
+            this.configurationRoot = configurationBuilder.Build();
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        /// <summary>
+        /// 実行
+        /// </summary>
+        public int Execute()
         {
-            this.config = new ApiConfig(this.configurationRoot);
-            services.AddMvc().AddControllersAsServices();
-
             var builder = new AutofacBuilder();
-            builder.Populate(services);
-            builder.RegisterModule(new ApiDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
-            var scope = builder.Build();
-            return builder.CreateServiceProvider();
-        }
-
-        public void Configure(IApplicationBuilder builder)
-        {
-            builder.UseDeveloperExceptionPage();
-            builder.UseMvc(this.config.CreateMvcConfigureRoutes);
+            builder.RegisterModule(new DIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
+            using(var scope = builder.Build())
+            {
+                var cts = scope.Resolve<CancellationTokenSource>();
+                var action = new Action<AssemblyLoadContext>(context =>
+                {
+                    cts.Cancel(false);
+                });
+                AssemblyLoadContext.Default.Unloading += action;
+                try
+                {
+                    var app = scope.Resolve<Application>();
+                    return app.Execute(args);
+                }
+                finally
+                {
+                    AssemblyLoadContext.Default.Unloading -= action;
+                }
+            }
         }
     }
 }

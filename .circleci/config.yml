@@ -25,12 +25,9 @@ jobs:
     environment:
       - ConnectionStrings__Root: 'Server=127.0.0.1;User ID=postgres;Password=postgres;Port=5432;'
       - Directory: '../.migration'
+      - InitialMigrationTimeout: 60
     steps:
       - checkout
-      - run:
-          name: build
-          command: dotnet run -c Release -p Deploys.Db
-          background: true
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
@@ -40,11 +37,8 @@ jobs:
           name: Wait for db
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
       - run:
-          name: Wait for app
-          command: dockerize -wait tcp://127.0.0.1:80 -timeout 1m
-      - run:
-          name: migration
-          command: sh .circleci/migration.sh
+          name: run
+          command: dotnet run -c Release -p Deploys.Db
   publish:
     executor: dind
     steps:
