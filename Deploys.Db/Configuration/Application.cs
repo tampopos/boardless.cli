@@ -71,17 +71,19 @@ namespace Deploys.Db.Configuration
                         var r = await useCase.ExecuteAsync();
                         if (r != 0)
                         {
-                            throw new Exception("Failure migration.");
+                            throw new Exception("Failure migration");
                         }
                     }
                     catch (Exception ex)
                     {
+                        this.logger.LogWarning(ex, "Error migration");
                         if (this.config.Timeout <= stopwatch.ElapsedMilliseconds * 1000)
                         {
-                            this.logger.LogError(ex, string.Empty);
                             return false;
                         }
-                        this.logger.LogInformation("Retry migration.");
+                        this.logger.LogInformation("Wait 5 sec...");
+                        await Task.Delay(5000);
+                        this.logger.LogInformation("Retry migration");
                         return await MigrationAsyncInner();
                     }
                     return true;
