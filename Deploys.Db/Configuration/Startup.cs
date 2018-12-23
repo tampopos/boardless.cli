@@ -72,7 +72,7 @@ namespace Deploys.Db.Configuration
             var result = useCase.ExecuteAsync().GetAwaiter().GetResult();
             if (result != MigrationState.Success)
             {
-                Environment.Exit(1);
+                throw new Exception("Migrationに失敗しました。");
             }
         }
 

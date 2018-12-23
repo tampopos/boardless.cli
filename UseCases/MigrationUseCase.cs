@@ -73,7 +73,7 @@ namespace UseCases
                 catch (Exception ex)
                 {
                     this.logger.LogWarning(ex, "Error migration");
-                    if (this.config.Timeout <= stopwatch.ElapsedMilliseconds * 1000)
+                    if (this.config.Timeout <= stopwatch.ElapsedMilliseconds / 1000)
                     {
                         this.migrationStore.State = MigrationState.Failure;
                         return;
