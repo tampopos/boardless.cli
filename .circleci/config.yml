@@ -45,7 +45,7 @@ jobs:
           command: wget https://raw.githubusercontent.com/tampopos/shell-scripts/master/wait-for-result.sh
       - run:
           name: wait
-          command: bash wait-for-result.sh http://127.0.0.1:80 Success GET 60
+          command: bash wait-for-result.sh http://127.0.0.1:80/migration/state/ Success GET 60
   publish:
     executor: dind
     steps:
