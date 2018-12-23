@@ -24,8 +24,8 @@ jobs:
     executor: dotnet
     environment:
       - ConnectionStrings__Root: 'Server=127.0.0.1;User ID=postgres;Password=postgres;Port=5432;'
-      - Directory: '.migration'
-      - InitialMigrationTimeout: 60
+      - Directory: '../.migration'
+      - Timeout: 60
     steps:
       - checkout
       - run:
@@ -39,6 +39,13 @@ jobs:
       - run:
           name: run
           command: dotnet run -c Release -p Deploys.Db
+          background: true
+      - run:
+          name: install waiter
+          command: wget https://raw.githubusercontent.com/tampopos/shell-scripts/master/wait-for-result.sh
+      - run:
+          name: wait
+          command: bash wait-for-result.sh http://127.0.0.1:80/migration/state/ Success GET 60
   publish:
     executor: dind
     steps:

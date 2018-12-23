@@ -8,6 +8,8 @@ using Tmpps.Infrastructure.Common.Foundation;
 using Tmpps.Infrastructure.Common.Foundation.Interfaces;
 using Tmpps.Infrastructure.Data.Migration.Interfaces;
 using Tmpps.Infrastructure.Npgsql.Entity.Migration;
+using UseCases;
+using UseCases.Interfaces;
 
 namespace Deploys.Db.Configuration
 {
@@ -36,8 +38,11 @@ namespace Deploys.Db.Configuration
             builder.RegisterModule(new AutofacDIModule());
             builder.RegisterModule(new MigrationDIModule());
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
+            builder.RegisterType<MigrationStore>(x => x.As<IMigrationStore>().SingleInstance());
+            builder.RegisterType<MigrationUseCase>(x => x.As<IMigrationUseCase>());
             builder.RegisterType<Config>(x =>
                 x.As<IMigrationConfig>()
+                .As<IConfig>()
                 .As<Config>()
                 .SingleInstance());
         }

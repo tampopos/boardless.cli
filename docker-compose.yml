@@ -10,6 +10,8 @@ services:
       LANG: ja_JP.UTF-8
     volumes:
       - /.data/boardless/:/var/lib/postgresql/data:Z
+    ports:
+      - '5432:5432'
     networks:
       - my-network
   deploys-db:
@@ -21,6 +23,8 @@ services:
       - Timeout=60
     networks:
       - my-network
+    ports:
+      - '8080:80'
     depends_on:
       - postgres
     links:

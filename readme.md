@@ -31,7 +31,7 @@ db の展開
 
 #### test
 
-`sudo docker-compose up`
+`sudo docker-compose up --build`
 
 #### debug
 
