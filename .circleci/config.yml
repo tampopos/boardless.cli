@@ -25,7 +25,7 @@ jobs:
     environment:
       - ConnectionStrings__Root: 'Server=127.0.0.1;User ID=postgres;Password=postgres;Port=5432;'
       - Directory: '.migration'
-      - InitialMigrationTimeout: 60
+      - Timeout: 60
     steps:
       - checkout
       - run:
